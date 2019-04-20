@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.springboot.dao.GoodsMapper">
+    <sql id="mySql">goodsid,goodsname,goodstype,goodsstore,goodsprice,typename</sql>
+    <select id="findallGoods" resultType="com.aaa.springboot.entity.Goodsinfo">
+        select <include refid="mySql"></include> from goodsinfo,typeinfo t where goodstype=t.typeid
+    </select>
+
+    <select id="findone" resultType="com.aaa.springboot.entity.Goodsinfo">
+        select goodsid,goodsname,goodstype,goodsstore,goodsprice from goodsinfo where goodsid=#{goodsid}
+    </select>
+    <select id="findtype" resultType="com.aaa.springboot.entity.Typeinfo">
+        select typename,typeid from typeinfo
+    </select>
+    <update id="update" parameterType="com.aaa.springboot.entity.Goodsinfo">
+        update goodsinfo
+        <set>
+            <if test="goodsname != null">
+                goodsname = #{goodsname,jdbcType=VARCHAR},
+            </if>
+            <if test="goodstype != null">
+                goodstype = #{goodstype,jdbcType=INTEGER},
+            </if>
+            <if test="goodsstore != null">
+                goodsstore = #{goodsstore,jdbcType=INTEGER},
+            </if>
+            <if test="goodsprice != null">
+                goodsprice = #{goodsprice,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where goodsid = #{goodsid,jdbcType=INTEGER}
+    </update>
+</mapper>

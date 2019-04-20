@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="update" method="post"
+      onsubmit="return sumbit_sure()">
+    <table border="1">
+        <tr>
+            <td>商品编号</td>
+            <td><input type="text" value="" th:value="${goods.goodsid}"
+                       name="goodsid" readonly="readonly"/></td>
+        </tr>
+        <tr>
+            <td>商品名称</td>
+            <td><input type="text" th:value="${goods.goodsname}"
+                       name="goodsname"/></td>
+        </tr>
+        <tr>
+            <td>商品类型</td>
+            <td><select name="typeinfo">
+            <option th:each="type:${findtype}" th:value="${type.typeid}"
+                    th:text="${type.typename}"></option>
+        </select></td>
+        </tr>
+        <tr>
+            <td>商品单价</td>
+            <td><input type="text" th:value="${goods.goodsprice}"
+                       name="goodsprice"/></td>
+        </tr>
+        <tr>
+            <td>商品库存</td>
+            <td><input type="text" th:value="${goods.goodsstore}"
+                       name="goodsstore"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">更新</button>
+                <button type="reset">重置</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script language="javascript">
+    function sumbit_sure() {
+        var gnl = confirm("确定要提交?");
+        if (gnl == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+
+</body>
+</html>
